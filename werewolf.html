@@ -5,23 +5,32 @@
     var names = [];
     var poisoned;
     var dead = [];
+    var see;
+    var passcode = ["紅色","綠色","藍色"]
 
     function iamwolf() {
         document.getElementById("instruction").innerHTML = names.length + 1 + " 號玩家請輸入身份";
         document.getElementById("input").innerHTML = `
-        <button id="good" value="好人">好人</button>
+        <button id="hunter" value="猎人">猎人</button>
+        <button id="good" value="其他好人">其他好人</button>
         <button id="bad" value="狼人">狼人</button>
         <p id="playercount">沒有玩家</p>
-        <button id="finish" value="完成">完成</button>`
+        <button id="finish" value="開始遊戲">開始遊戲</button>`
+        document.getElementById("hunter").addEventListener('click', function() {
+            names.push("猎人");
+            alert(names.length + " 號玩家已輸入完成");
+            document.getElementById("instruction").innerHTML = names.length + 1 + " 號玩家請輸入身份";
+            document.getElementById("playercount").innerHTML = "共 " + names.length + "位玩家";
+        });
         document.getElementById("good").addEventListener('click', function() {
             names.push("好人");
-            alert(names.length)
+            alert(names.length + " 號玩家已輸入完成");
             document.getElementById("instruction").innerHTML = names.length + 1 + " 號玩家請輸入身份";
             document.getElementById("playercount").innerHTML = "共 " + names.length + "位玩家";
         });
         document.getElementById("bad").addEventListener('click', function() {
             names.push("狼人");
-            alert(names.length);
+            alert(names.length + " 號玩家已輸入完成");
             document.getElementById("instruction").innerHTML = names.length + 1 + " 號玩家請輸入身份";
             document.getElementById("playercount").innerHTML = "共 " + names.length + " 位玩家";
         });
@@ -31,24 +40,38 @@
         });
     };
     function whokill() {
-        document.getElementById("instruction").innerHTML = "請選擇殺人目標";
+        document.getElementById("instruction").innerHTML = "狼人：請選擇殺人目標";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="text" id="userInput" />
-            <input type="submit" onclick="tokill();" />
+            <input value="死吧～" type="submit" onclick="tokill();" />
         </form>`;
     }
     function tokill() {
         killed = document.getElementById("userInput").value;
-        document.getElementById("instruction").innerHTML = "你殺了" + killed;
+        alert("你殺了" + killed);
+        document.getElementById("instruction").innerHTML = "狼人請閉眼 <br><br> 預言家請按繼續";
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="iswolf();" value="繼續" />
+        </form>`;
+    }
+    function iswolf() {
+        document.getElementById("instruction").innerHTML = "預言家：請選擇驗人對象";
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="text" id="userInput" />
+            <input value="確定" type="submit" onclick="toseeifwolf();" />
+        </form>`;
+    }
+    function toseeifwolf() {
+        see = parseInt(document.getElementById("userInput").value);
+        alert(names[see-1]);
+        document.getElementById("instruction").innerHTML = "預言家請閉眼 <br><br> 女巫請按繼續";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="whoheal();" value="繼續" />
         </form>`;
-    }
-    function heal() {
-        killed = 0
-        poison()
     }
     function whoheal() {
         document.getElementById("instruction").innerHTML = killed + " 號玩家死了，要救嗎？" + "<br>";
@@ -59,25 +82,53 @@
         </form>`;
     }
     function heal() {
-
+        alert("感覺被治癒了～");
+        document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="morning();" value="繼續" />
+        </form>`;
     }
     function whopoison() {
         dead.push(killed);
-        document.getElementById("instruction").innerHTML = "請選擇毒殺目標";
+        document.getElementById("instruction").innerHTML = "要毒人嗎？如要，請選擇毒殺目標，然後按「死吧～」。否則請按「不毒」。";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="text" id="userInput" />
-            <input type="submit" onclick="topoison();" />
+            <input value="死吧～" type="submit" onclick="topoison();" />
+        </form>
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="nopoison();" value="不毒" />
+        </form>`;
+    }
+    function nopoison() {
+        document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="morning();" value="繼續" />
         </form>`;
     }
     function topoison() {
         poisoned = document.getElementById("userInput").value
         dead.push(poisoned);
-        document.getElementById("instruction").innerHTML = killed;
+        document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
-            <input type="submit" onclick="alert(dead.sort());" value="繼續" />
+            <input type="submit" onclick="morning();" value="繼續" />
         </form>`;
+    }
+    function morning() {
+        document.getElementById("instruction").innerHTML = `猎人開槍狀態為：<br><br>
+        競選警長！ `;
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="lastnight();" value="查看昨晚狀況" />
+        </form>`;
+    }
+    function lastnight() {
+        alert("真的要看嚕？");
+        document.getElementById("instruction").innerHTML = "死亡玩家： " + dead.sort();
+        document.getElementById("input").innerHTML = ``;
     }
 
 
@@ -85,14 +136,17 @@
 
 </head>
 <body>
-    <div style="position:absolute; top:5%; left:5%; width:40%; text-align: center;" id="render-target">
+    <div style="position:absolute; top:5%; left:5%; width:90%; text-align: center;" id="render-target">
         <h2>狼人殺首夜法官</h2>
+        <h3>
         <div id="instruction">
-            <h3>開始遊戲</h3>
+            <h3>測試版</h3>
+            <h4>開發者：Justin Ho</h4>
         </div>
+        </h3>
         <div id="input">
             <form id="form" onsubmit="return false;">
-                <input type="submit" onclick="iamwolf();" />
+                <input value="開始遊戲" type="submit" onclick="iamwolf();" />
             </form>
         </div>
     </div>
