@@ -1,0 +1,91 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<style>
+.button {
+    font-size: 5vw;
+}
+body {
+    font-size: 5vw;
+}
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #eee;
+    border: 2px solid #999;
+    color: black;
+    padding: 0.65vw 0.65vw;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 4vw;
+}
+input[type=text] {
+    border: 2px solid #999;
+    border-radius: 4px;
+    font-size: 5vw;
+    width: 20%;
+}
+</style>
+    <script>
+    var playercount;
+    var startplayer;
+    var order = ["往大號發言","往小號發言"];
+    var rand1;
+
+    function morning() {
+        playercount = parseInt(document.getElementById("userInput").value);
+        startplayer = Math.floor((Math.random() * playercount)) + 1;
+        while (startplayer > playercount) {
+            startplayer = Math.floor((Math.random() * playercount)) + 1;
+        }
+        rand1 = Math.round((Math.random() * 2))
+        while (rand1 == 2) {
+            rand1 = Math.round((Math.random() * 2))
+        }
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="again();" value="再來" />
+        </form>`;
+    }
+    function again() {
+        startplayer = Math.floor((Math.random() * playercount)) + 1;
+        while (startplayer > playercount) {
+            startplayer = Math.floor((Math.random() * playercount)) + 1;
+        }
+        rand1 = Math.floor((Math.random() * 2))
+        while (rand1 == 2) {
+            rand1 = Math.floor((Math.random() * 2))
+        }
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="again();" value="再來" />
+        </form>`;
+    }
+
+
+
+    </script>
+
+</head>
+<body>
+    <div style="position:absolute; top:5%; left:5%; width:90%; text-align: center;" id="render-target">
+        <h2 style="font-size:10vw; color:#8A2BE2">狼人殺發言順序產生器</h2>
+        <h3 style="font-size:8vw">
+        <div id="instruction">
+            <h3>測試版</h3>
+        </div>
+        </h3>
+        <div id="input">
+            <h4>請輸入玩家人數：</h4>
+            <form id="form" onsubmit="return false;">
+                <input type="text" id="userInput" />
+                <input value="開始" type="submit" onclick="morning();" />
+            </form>
+        </div>
+        <p style="font-size:2vw; color:#666"><small>開發者：Justin Ho</small></p>
+    </div>
+
+
+
+</body>
+</html>
