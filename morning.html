@@ -28,6 +28,7 @@ input[type=text] {
     var playercount;
     var startplayer;
     var order = ["往大號發言","往小號發言"];
+    var order2 = ["死左","死右"];<!-- VC -->
     var rand1;
 
     function morning() {
@@ -40,7 +41,7 @@ input[type=text] {
         while (rand1 == 2) {
             rand1 = Math.round((Math.random() * 2))
         }
-        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + ", or" + order2[rand1] + "发言";<!-- VC -->
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="again();" value="再來" />
@@ -55,7 +56,7 @@ input[type=text] {
         while (rand1 == 2) {
             rand1 = Math.floor((Math.random() * 2))
         }
-        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + ", or" + order2[rand1] + "发言";<!-- VC -->
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="again();" value="再來" />
