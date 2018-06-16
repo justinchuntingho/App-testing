@@ -41,8 +41,7 @@ input[type=text] {
         while (rand1 == 2) {
             rand1 = Math.round((Math.random() * 2))
         }
-        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
-        document.getElementById("instruction").innerHTML = "從 " + order2[rand1] + "玩家開始发言<br>" ;<!-- VC -->
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + ", or" + order2[rand1] + "发言";<!-- VC -->
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="again();" value="再來" />
@@ -57,8 +56,7 @@ input[type=text] {
         while (rand1 == 2) {
             rand1 = Math.floor((Math.random() * 2))
         }
-        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1];
-        document.getElementById("instruction").innerHTML = "從 " + order2[rand1] + "玩家開始发言<br>" ;<!-- VC -->
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + ", or" + order2[rand1] + "发言";<!-- VC -->
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="again();" value="再來" />
