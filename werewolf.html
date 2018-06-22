@@ -31,12 +31,18 @@ input[type=text] {
     var dead = [];
     var see;
     var hunter;
+    var playercount;
+    var startplayer;
+    var order = ["往大號發言","往小號發言"];
+    var order2 = ["死左","死右"];
     var passcode = ["紫色","白色","黑色"]
-    var rand = Math.round((Math.random() * 2))
-    var rand2 = Math.round((Math.random() * 2))
+    var rand = Math.floor((Math.random() * 3))
+    var rand2 = Math.floor((Math.random() * 3))
     while (rand == rand2) {
-    rand2 = Math.round((Math.random() * 2));
+    rand2 = Math.floor((Math.random() * 3));
     }
+    var rand1;
+
 
     function iamwolf() {
         document.getElementById("instruction").innerHTML = names.length + 1 + " 號玩家請輸入身份";
@@ -67,6 +73,7 @@ input[type=text] {
         });
         document.getElementById("finish").addEventListener('click', function() {
             alert("共 " + names.length + " 位玩家");
+            playercount = names.length
             whokill();
         });
     };
@@ -149,10 +156,18 @@ input[type=text] {
         </form>`;
     }
     function morning() {
+        startplayer = Math.floor((Math.random() * playercount)) + 1;
+        while (startplayer > playercount) {
+            startplayer = Math.floor((Math.random() * playercount)) + 1;
+        }
+        rand1 = Math.floor((Math.random() * 2))
+        while (rand1 == 2) {
+            rand1 = Math.floor((Math.random() * 2))
+        }
         if (poisoned == hunter){
-            document.getElementById("instruction").innerHTML = "猎人開槍狀態為：" + passcode[rand2] + "<br><br>競選警長！";
+            document.getElementById("instruction").innerHTML = "猎人開槍狀態為：" + passcode[rand2] + "<br><br>競選警長！<br>從 " + startplayer + " 號玩家開始<br>" + order[rand1];
         } else {
-            document.getElementById("instruction").innerHTML = "猎人開槍狀態為：" + passcode[rand] + "<br><br>競選警長！";
+            document.getElementById("instruction").innerHTML = "猎人開槍狀態為：" + passcode[rand] + "<br><br>競選警長！<br>從 " + startplayer + " 號玩家開始<br>" + order[rand1];
         }
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
@@ -162,7 +177,25 @@ input[type=text] {
     function lastnight() {
         alert("真的要看嚕？");
         document.getElementById("instruction").innerHTML = "死亡玩家： " + dead.sort();
-        document.getElementById("input").innerHTML = ``;
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="again();" value="再來" />
+        </form>`;
+    }
+    function again() {
+        startplayer = Math.floor((Math.random() * playercount)) + 1;
+        while (startplayer > playercount) {
+            startplayer = Math.floor((Math.random() * playercount)) + 1;
+        }
+        rand1 = Math.floor((Math.random() * 2))
+        while (rand1 == 2) {
+            rand1 = Math.floor((Math.random() * 2))
+        }
+        document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + "<br>或<br>" + order2[rand1] + "发言";<!-- VC -->
+        document.getElementById("input").innerHTML = `
+        <form id="form" onsubmit="return false;">
+            <input type="submit" onclick="again();" value="再來" />
+        </form>`;
     }
 
 
@@ -182,7 +215,7 @@ input[type=text] {
                 <input value="開始遊戲" type="submit" onclick="iamwolf();" />
             </form>
         </div>
-        <p><small>開發者：Justin Ho</small></p>
+        <p style="font-size:2vw; color:#666">開發者：Justin Ho</p>
     </div>
 
 
