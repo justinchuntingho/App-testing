@@ -107,7 +107,7 @@ input[type=text] {
     }
     function tokill() {
         killed = document.getElementById("userInput").value;
-        alert("你殺了" + killed);
+        alert("你殺了" + killed + " (狼人操作完成)");
         document.getElementById("instruction").innerHTML = "狼人請閉眼 <br><br> 預言家請按繼續";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
@@ -125,7 +125,7 @@ input[type=text] {
     }
     function toseeifwolf() {
         see = parseInt(document.getElementById("userInput").value);
-        alert(names[see-1]);
+        alert(names[see-1] + " (預言家操作完成)");
         document.getElementById("instruction").innerHTML = "預言家請閉眼 <br><br> 女巫請按繼續";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
@@ -142,7 +142,7 @@ input[type=text] {
         </form>`;
     }
     function heal() {
-        alert("感覺被治癒了～");
+        alert("感覺被治癒了～（女巫操作完成）");
         document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
@@ -163,6 +163,7 @@ input[type=text] {
         </form>`;
     }
     function nopoison() {
+        alert("女巫操作完成");
         document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
@@ -171,6 +172,7 @@ input[type=text] {
         countdown();
     }
     function topoison() {
+        alert("女巫操作完成");
         poisoned = document.getElementById("userInput").value
         if (poisoned != killed){
             dead.push(poisoned);
@@ -221,7 +223,7 @@ input[type=text] {
         document.getElementById("instruction").innerHTML = "從 " + startplayer + " 號玩家開始<br>" + order[rand1] + "<br>或<br>" + order2[rand1] + "发言";<!-- VC -->
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
-            <input type="submit" onclick="again();" value="再來" />
+            <input type="submit" onclick="again();" value="重設發言順序" />
         </form>`;
     }
 
