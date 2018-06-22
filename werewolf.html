@@ -36,12 +36,32 @@ input[type=text] {
     var order = ["往大號發言","往小號發言"];
     var order2 = ["死左","死右"];
     var passcode = ["紫色","白色","黑色"]
+    var audio = new Audio('wolf.mp3');
+
     var rand = Math.floor((Math.random() * 3))
     var rand2 = Math.floor((Math.random() * 3))
     while (rand == rand2) {
     rand2 = Math.floor((Math.random() * 3));
     }
     var rand1;
+    function sleep(milliseconds) {
+      var start = new Date().getTime();
+      for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+          break;
+        }
+      }
+    }
+    function countdown() {
+        sleep(1000);
+        console.log('3');
+        sleep(1000);
+        console.log('2');
+        sleep(1000);
+        console.log('1');
+        audio.play();
+    }
+
 
 
     function iamwolf() {
@@ -93,6 +113,7 @@ input[type=text] {
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="iswolf();" value="繼續" />
         </form>`;
+        countdown();
     }
     function iswolf() {
         document.getElementById("instruction").innerHTML = "預言家：請選擇驗人對象";
@@ -110,6 +131,7 @@ input[type=text] {
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="whoheal();" value="繼續" />
         </form>`;
+        countdown();
     }
     function whoheal() {
         document.getElementById("instruction").innerHTML = killed + " 號玩家死了，要救嗎？" + "<br>";
@@ -126,6 +148,7 @@ input[type=text] {
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="morning();" value="繼續" />
         </form>`;
+        countdown();
     }
     function whopoison() {
         dead.push(killed);
@@ -145,15 +168,19 @@ input[type=text] {
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="morning();" value="繼續" />
         </form>`;
+        countdown();
     }
     function topoison() {
         poisoned = document.getElementById("userInput").value
-        dead.push(poisoned);
+        if (poisoned != killed){
+            dead.push(poisoned);
+        }
         document.getElementById("instruction").innerHTML = "女巫請閉眼 <br><br> 天亮了，請按繼續查看天亮狀態";
         document.getElementById("input").innerHTML = `
         <form id="form" onsubmit="return false;">
             <input type="submit" onclick="morning();" value="繼續" />
         </form>`;
+        countdown();
     }
     function morning() {
         startplayer = Math.floor((Math.random() * playercount)) + 1;
